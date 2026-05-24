@@ -4,7 +4,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 
-from edu_tutor.config import StoreConfig
+from edu_mentor.config import StoreConfig
 
 
 def get_vector_store(

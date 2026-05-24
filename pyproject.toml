@@ -1,7 +1,7 @@
 [project]
-name = "edu-tutor"
+name = "edu-mentor"
 version = "0.1.0"
-description = "Advanced tutor agent with RAG and tools"
+description = "Advanced mentor agent with RAG and tools"
 readme = "README.md"
 requires-python = ">=3.12,<=3.13"
 dependencies = [
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [tool.fastapi]
-entrypoint = "edu_tutor.api:app"
+entrypoint = "edu_mentor.api:app"
 
 [build-system]
 requires = ["uv_build>=0.11.3,<0.12"]

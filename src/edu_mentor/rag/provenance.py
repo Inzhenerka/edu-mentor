@@ -2,7 +2,7 @@ import re
 
 from langchain_core.documents import Document
 
-from edu_tutor.rag.chunk import ChunkMetadata
+from edu_mentor.rag.chunk import ChunkMetadata
 
 # Готовим парсер отсылок формата [N]
 _REF_RE = re.compile(r"\[(\d+)]")

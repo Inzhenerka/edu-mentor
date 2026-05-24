@@ -1,6 +1,6 @@
 from langchain_openai import OpenAIEmbeddings
 
-from edu_tutor.config import EmbedderConfig
+from edu_mentor.config import EmbedderConfig
 
 
 def get_embedder(config: EmbedderConfig) -> OpenAIEmbeddings:

@@ -2,7 +2,7 @@ import uuid
 
 from fastapi.testclient import TestClient
 
-from edu_tutor.api import app, TutorResponse
+from edu_mentor.api import app, MentorResponse
 
 PROMPTS = [
     # Вызов RAG
@@ -24,7 +24,7 @@ with TestClient(app) as client:
             "/ask",
             data={"question": prompt, "thread_id": THREAD_ID},
         )
-        response = TutorResponse.model_validate(api_response.json())
+        response = MentorResponse.model_validate(api_response.json())
         print(f"🤖: {response.content}")
         if response.sources:
             print("  📚 Источники:")

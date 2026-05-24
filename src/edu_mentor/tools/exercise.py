@@ -44,7 +44,7 @@ def make_suggest_exercise(data_file: Path) -> BaseTool:
         # Выбираем упражнение случайным образом
         picked = random.choice(candidates)
         return (
-            f"Задание (#{picked.id}, тема: {picked.topic}, уровень: {picked.difficulty}):\n\n"
+            f"Задание (#{picked.id}, тема: {picked.topic}, уровень: {picked.difficulty}):\n"
             f"{picked.statement}"
         )
 

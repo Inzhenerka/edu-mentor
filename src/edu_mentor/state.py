@@ -4,5 +4,5 @@ from langchain.agents.middleware import AgentState
 from langchain_core.documents import Document
 
 
-class TutorAgentState(AgentState):
+class MentorAgentState(AgentState):
     chunks: NotRequired[list[Document]]

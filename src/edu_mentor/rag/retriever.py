@@ -1,6 +1,6 @@
 from langchain_core.vectorstores import VectorStore, VectorStoreRetriever
 
-from edu_tutor.config import RetrieverConfig
+from edu_mentor.config import RetrieverConfig
 
 
 def get_retriever(

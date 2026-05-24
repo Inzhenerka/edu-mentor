@@ -1,6 +1,6 @@
 from langchain.chat_models import init_chat_model, BaseChatModel
 
-from edu_tutor.config import LLMConfig
+from edu_mentor.config import LLMConfig
 
 
 def load_chat_model(llm_config: LLMConfig) -> BaseChatModel:

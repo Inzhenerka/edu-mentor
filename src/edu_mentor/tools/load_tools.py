@@ -1,8 +1,8 @@
 from langchain.tools import BaseTool
 
-from edu_tutor.config import ToolsConfig
-from edu_tutor.tools.exercise import make_suggest_exercise
-from edu_tutor.tools.consultation import book_consultation
+from edu_mentor.config import ToolsConfig
+from edu_mentor.tools.exercise import make_suggest_exercise
+from edu_mentor.tools.consultation import book_consultation
 
 
 def load_tools(config: ToolsConfig) -> list[BaseTool]:

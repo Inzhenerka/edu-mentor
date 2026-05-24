@@ -8,23 +8,23 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.state import CompiledStateGraph
 from pydantic import BaseModel
 
-from edu_tutor.chat_model import load_chat_model
-from edu_tutor.config import Config
-from edu_tutor.middleware.rag import RAGMiddleware
-from edu_tutor.prompts import TutorPrompt
-from edu_tutor.rag.chunk import ChunkMetadata
-from edu_tutor.rag.provenance import parse_referenced_chunks
-from edu_tutor.rag.retriever import get_retriever
-from edu_tutor.tools.load_tools import load_tools
+from edu_mentor.chat_model import load_chat_model
+from edu_mentor.config import Config
+from edu_mentor.middleware.rag import RAGMiddleware
+from edu_mentor.prompts import MentorPrompt
+from edu_mentor.rag.chunk import ChunkMetadata
+from edu_mentor.rag.provenance import parse_referenced_chunks
+from edu_mentor.rag.retriever import get_retriever
+from edu_mentor.tools.load_tools import load_tools
 
 
-class TutorResponse(BaseModel):
+class MentorResponse(BaseModel):
     content: str
     thread_id: str
     sources: dict[int, ChunkMetadata]
 
 
-class Tutor:
+class Mentor:
     _agent: CompiledStateGraph
 
     def __init__(self, llm_key: str, config: Config, vector_store: VectorStore, debug: bool = False):
@@ -39,7 +39,7 @@ class Tutor:
         self._agent = create_agent(
             model=chat_model,
             tools=load_tools(config.tools),
-            system_prompt=TutorPrompt().render_prompt(),
+            system_prompt=MentorPrompt().render_prompt(),
             checkpointer=InMemorySaver(),
             middleware=[
                 ModelRetryMiddleware(max_retries=2, initial_delay=1),
@@ -53,7 +53,7 @@ class Tutor:
         self,
         prompt: str,
         thread_id: str | None = None,
-    ) -> TutorResponse:
+    ) -> MentorResponse:
         """Вызываем агента и извлекаем ответ из массива сообщений"""
 
         # Ограничиваем длину запроса для экономии токенов
@@ -79,7 +79,7 @@ class Tutor:
         )
 
         # Формируем ответ, включая источники и вызванные инструменты
-        return TutorResponse(
+        return MentorResponse(
             content=response_content,
             sources=sources,
             thread_id=effective_thread_id,

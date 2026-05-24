@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Request
 from loguru import logger
 
-from edu_tutor.agent import Tutor
-from edu_tutor.config import Config
-from edu_tutor.rag.embedder import get_embedder
-from edu_tutor.rag.vector_store import get_vector_store
+from edu_mentor.agent import Mentor
+from edu_mentor.config import Config
+from edu_mentor.rag.embedder import get_embedder
+from edu_mentor.rag.vector_store import get_vector_store
 
 
 def init_global_dependencies(app: FastAPI) -> None:
@@ -29,7 +29,7 @@ def init_global_dependencies(app: FastAPI) -> None:
     logger.info(f"Vector store ready: {config.rag.store.collection} @ {config.rag.store.location}")
 
     # Создание агента.
-    app.state.agent = Tutor(
+    app.state.agent = Mentor(
         llm_key="api",
         config=config,
         vector_store=vector_store,
@@ -37,8 +37,8 @@ def init_global_dependencies(app: FastAPI) -> None:
     )
 
 
-def get_agent(request: Request) -> Tutor:
+def get_agent(request: Request) -> Mentor:
     return request.app.state.agent
 
 
-type AgentDependency = Annotated[Tutor, Depends(get_agent)]
+type AgentDependency = Annotated[Mentor, Depends(get_agent)]

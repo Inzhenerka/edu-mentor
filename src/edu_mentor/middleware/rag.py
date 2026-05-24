@@ -6,14 +6,14 @@ from langchain_core.messages import filter_messages
 from langchain_core.retrievers import BaseRetriever
 from langgraph.runtime import Runtime
 
-from edu_tutor.state import TutorAgentState
-from edu_tutor.prompts import TutorHumanMessage
+from edu_mentor.state import MentorAgentState
+from edu_mentor.prompts import LibrarianHumanMessage
 
 
-class RAGMiddleware(AgentMiddleware[TutorAgentState]):
+class RAGMiddleware(AgentMiddleware[MentorAgentState]):
     """Готовая RAG-обвязка для агента. Подключается одной строкой через передачу ретривера."""
 
-    state_schema = TutorAgentState
+    state_schema = MentorAgentState
 
     def __init__(self, retriever: BaseRetriever):
         super().__init__()
@@ -21,7 +21,7 @@ class RAGMiddleware(AgentMiddleware[TutorAgentState]):
 
     def before_agent(
         self,
-        state: TutorAgentState,
+        state: MentorAgentState,
         runtime: Runtime,
     ) -> dict[str, Any] | None:
         """Готовим чанки под текущую тему беседы."""
@@ -56,7 +56,7 @@ class RAGMiddleware(AgentMiddleware[TutorAgentState]):
         last_idx = next(i for i, m in enumerate(request.messages) if m is last_message)
 
         # Рендерим новое сообщение пользователя
-        enriched_message = TutorHumanMessage(
+        enriched_message = LibrarianHumanMessage(
             chunks=chunks,
             question=str(last_message.content),
         ).render_human_message()
@@ -68,7 +68,7 @@ class RAGMiddleware(AgentMiddleware[TutorAgentState]):
         return handler(request.override(messages=new_messages))
 
 
-def build_retrieval_query(state: TutorAgentState, max_messages: int = 3) -> str:
+def build_retrieval_query(state: MentorAgentState, max_messages: int = 3) -> str:
     """Собрать запрос для ретривера из последних N сообщений пользователя, чтобы не терять контекст."""
     human_messages = filter_messages(state["messages"], include_types=HumanMessage)
     return "\n".join(str(m.content) for m in human_messages[-max_messages:])

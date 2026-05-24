@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фортран — IT-тьютор для студентов</title>
+    <title>Фортран — IT-ментор для студентов</title>
     <style>
         :root {
             font-family: "Segoe UI", Tahoma, sans-serif;
@@ -112,17 +112,27 @@
             align-content: start;
         }
         .empty-state {
-            display: grid;
-            place-items: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
             min-height: 180px;
             padding: 18px;
             border: 1px dashed var(--panel-border);
             border-radius: 10px;
             color: var(--text-muted);
-            text-align: center;
             line-height: 1.5;
         }
         .empty-state strong { color: var(--accent); }
+        .empty-state-inner { text-align: center; width: 100%; }
+        .empty-state-inner p { margin: 6px 0; }
+        .empty-state-inner ul {
+            display: inline-block;
+            text-align: left;
+            margin: 6px auto;
+            padding-left: 22px;
+        }
+        .empty-state-inner li { margin: 4px 0; }
 
         .message {
             display: grid;
@@ -248,7 +258,7 @@
         >
         <div>
             <h1>Фортран</h1>
-            <p>IT-тьютор для студентов, изучающих программирование</p>
+            <p>IT-ментор для студентов, изучающих программирование</p>
         </div>
     </section>
 
@@ -266,7 +276,7 @@
                             name="question"
                             rows="3"
                             title="Сообщение. Ctrl+Enter отправляет"
-                            placeholder="Например: «Что такое list comprehension?» или «Дай задачу на Python средней сложности»"
+                            placeholder="Например: «Что такое git pull?» или «Дай задачу на Python средней сложности»"
                             required
                     ></textarea>
                 </label>
@@ -363,9 +373,16 @@
         if (state.messages.length === 0) {
             messagesNode.innerHTML = `
                 <div class="empty-state">
-                    Это <strong>Фортран</strong> — IT-тьютор для студентов, изучающих программирование.<br>
-                    Спросите про основы Python, Git, SQL или работу в терминале — он ответит,
-                    подкинет задачу или запишет на консультацию с куратором.
+                    <div class="empty-state-inner">
+                        <p>Привет! Я <strong>Фортран</strong> — твой напарник по IT-специальностям.</p>
+                        <p>Спрашивай в свободной форме — можно с кусками кода и ошибок.</p>
+                        <p>Чем могу помочь:</p>
+                        <ul>
+                            <li>Объясню тему по учебникам курса — Python, Git, SQL, работа в терминале.</li>
+                            <li>Подкину практическую задачу по теме, если хочешь потренироваться.</li>
+                            <li>Запишу на консультацию к живому куратору, если случай сложнее.</li>
+                        </ul>
+                    </div>
                 </div>`;
             return;
         }

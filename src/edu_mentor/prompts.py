@@ -20,12 +20,12 @@ class BasePrompt(BaseModel):
         return HumanMessage(content=self.render_prompt())
 
 
-class TutorPrompt(BasePrompt):
-    __file_path__ = "prompts/templates/tutor.jinja"
+class MentorPrompt(BasePrompt):
+    __file_path__ = "prompts/templates/mentor.jinja"
     today: str = Field(default_factory=lambda: date.today().isoformat())  # Текущая дата
 
 
-class TutorHumanMessage(BasePrompt):
-    __file_path__ = "prompts/messages/tutor_human.jinja"
+class LibrarianHumanMessage(BasePrompt):
+    __file_path__ = "prompts/messages/librarian_human.jinja"
     question: str
     chunks: list[Document]
