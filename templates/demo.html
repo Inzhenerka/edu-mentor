@@ -183,15 +183,15 @@
         }
         .message-bubble pre code { padding: 0; background: transparent; }
 
-        .sources, .tools { display: grid; gap: 6px; }
-        .sources-title, .tools-title {
+        .sources { display: grid; gap: 6px; }
+        .sources-title {
             font-size: 12px;
             font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 0.06em;
             text-transform: uppercase;
         }
-        .citation, .tool-call {
+        .citation {
             background: var(--source-bg);
             border: 1px solid var(--source-border);
             border-radius: 8px;
@@ -201,7 +201,6 @@
         .citation-ref { color: var(--accent); font-weight: 700; }
         .citation-title { font-weight: 600; }
         .citation-meta { color: var(--text-muted); font-size: 12px; }
-        .tool-call code { background: rgba(255, 255, 255, 0.7); padding: 1px 4px; border-radius: 4px; }
 
         .composer { display: grid; gap: 10px; }
         textarea[name="question"] { min-height: 84px; resize: vertical; }
@@ -360,12 +359,6 @@
         return `<div class="sources"><div class="sources-title">Источники</div>${items}</div>`;
     }
 
-    function renderToolCalls(toolCalls) {
-        if (!Array.isArray(toolCalls) || !toolCalls.length) return "";
-        const items = toolCalls.map(name => `<div class="tool-call"><code>${escapeHtml(name)}</code></div>`).join("");
-        return `<div class="tools"><div class="tools-title">Вызванные тулы</div>${items}</div>`;
-    }
-
     function renderMessages() {
         if (state.messages.length === 0) {
             messagesNode.innerHTML = `
@@ -383,12 +376,10 @@
                 ? renderMarkdown(message.content)
                 : renderPlainText(message.content);
             const sourcesHtml = (message.role === "assistant" && !message.pending) ? renderSources(message.sources) : "";
-            const toolsHtml = (message.role === "assistant" && !message.pending) ? renderToolCalls(message.toolCalls) : "";
             return `
                 <article class="message ${message.role}${message.pending ? " pending" : ""}">
                     <div class="message-meta">${meta.map(escapeHtml).join(" · ")}</div>
                     <div class="message-bubble">${body}</div>
-                    ${toolsHtml}
                     ${sourcesHtml}
                 </article>`;
         }).join("");
@@ -402,7 +393,6 @@
             durationMs: options.durationMs || 0,
             pending: Boolean(options.pending),
             sources: options.sources || {},
-            toolCalls: options.toolCalls || [],
         });
         renderMessages();
         return state.messages.length - 1;
@@ -420,7 +410,6 @@
         return {
             content: payload.content,
             sources: payload.sources && typeof payload.sources === "object" && !Array.isArray(payload.sources) ? payload.sources : {},
-            toolCalls: Array.isArray(payload.tool_calls) ? payload.tool_calls : [],
             threadId: typeof payload.thread_id === "string" ? payload.thread_id : state.threadId,
         };
     }
@@ -448,7 +437,7 @@
         newChatButton.disabled = true;
 
         addMessage("user", question);
-        const pendingIndex = addMessage("assistant", "Обдумываю вопрос…", { pending: true });
+        const pendingIndex = addMessage("assistant", "Ищу точный ответ…", { pending: true });
 
         const requestData = new FormData();
         requestData.set("question", question);
@@ -468,7 +457,6 @@
                 durationMs: performance.now() - startedAt,
                 pending: false,
                 sources: result.sources,
-                toolCalls: result.toolCalls,
             });
             questionField.value = "";
             questionField.focus();
@@ -477,7 +465,7 @@
             updateMessage(pendingIndex, {
                 role: "system", content: message,
                 createdAt: new Date().toISOString(), durationMs: 0, pending: false,
-                sources: {}, toolCalls: [],
+                sources: {},
             });
         } finally {
             state.isSubmitting = false;

@@ -3,7 +3,6 @@ import uuid
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelCallLimitMiddleware, ModelRetryMiddleware
 from langchain.messages import HumanMessage
-from langchain_core.messages import AIMessage, filter_messages
 from langchain_core.vectorstores import VectorStore
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.state import CompiledStateGraph
@@ -23,7 +22,6 @@ class TutorResponse(BaseModel):
     content: str
     thread_id: str
     sources: dict[int, ChunkMetadata]
-    tool_calls: set[str]
 
 
 class Tutor:
@@ -80,14 +78,9 @@ class Tutor:
             chunks=chunks,
         )
 
-        # Собираем имена вызванных тулов из истории сообщений для отображения в демо.
-        ai_messages = filter_messages(response["messages"], include_types=AIMessage)
-        tool_calls = set([call["name"] for m in ai_messages for call in m.tool_calls])
-
         # Формируем ответ, включая источники и вызванные инструменты
         return TutorResponse(
             content=response_content,
             sources=sources,
             thread_id=effective_thread_id,
-            tool_calls=tool_calls,
         )
