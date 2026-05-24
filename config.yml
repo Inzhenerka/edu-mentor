@@ -26,7 +26,7 @@ rag:
     k: 3
     score_threshold: 0.5
 
-# Tool зфкфьуеукы
+# Tool parameters
 tools:
   exercises_file: "data/exercises.yml"
 
