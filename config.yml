@@ -26,10 +26,6 @@ rag:
     k: 3
     score_threshold: 0.5
 
-# Tool parameters
-tools:
-  exercises_file: "data/exercises.yml"
-
 # Various app-wide settings
 app:
   log_level: "INFO"

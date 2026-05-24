@@ -41,15 +41,10 @@ class RAGConfig(BaseModel):
     retriever: RetrieverConfig
 
 
-class ToolsConfig(BaseModel):
-    exercises_file: Path = Path("data/exercises.yml")
-
-
 class Config(BaseModel):
     app: AppConfig
     llms: dict[str, LLMConfig]
     rag: RAGConfig
-    tools: ToolsConfig
 
     @classmethod
     def from_yaml_file(cls, config_path: str | Path = "config.yml") -> Self:

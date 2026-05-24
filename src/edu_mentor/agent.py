@@ -38,7 +38,7 @@ class Mentor:
 
         self._agent = create_agent(
             model=chat_model,
-            tools=load_tools(config.tools),
+            tools=load_tools(),
             system_prompt=MentorPrompt().render_prompt(),
             checkpointer=InMemorySaver(),
             middleware=[
