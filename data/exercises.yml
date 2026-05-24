@@ -1,0 +1,126 @@
+# === Python ===
+
+- id: ex-py-basics-01
+  topic: python
+  difficulty: easy
+  statement: |
+    Напишите функцию sum_to_n(n), которая возвращает сумму всех целых
+    чисел от 1 до n включительно.
+
+- id: ex-py-basics-02
+  topic: python
+  difficulty: easy
+  statement: |
+    Напишите функцию find_max(numbers), которая возвращает наибольшее
+    число в непустом списке, не используя встроенную функцию max().
+
+- id: ex-py-basics-03
+  topic: python
+  difficulty: medium
+  statement: |
+    Напишите функцию even_only(numbers), которая принимает список чисел
+    и возвращает новый список только с чётными.
+
+- id: ex-py-basics-04
+  topic: python
+  difficulty: medium
+  statement: |
+    Напишите функцию word_count(text), которая возвращает словарь
+    с количеством вхождений каждого слова в тексте. Слова разделены
+    пробелами, регистр игнорируйте.
+
+# === Git ===
+
+- id: ex-git-basics-01
+  topic: git
+  difficulty: easy
+  statement: |
+    Создайте локальный репозиторий, добавьте файл README.md с одним
+    предложением и сделайте первый коммит.
+
+- id: ex-git-basics-02
+  topic: git
+  difficulty: easy
+  statement: |
+    В существующем репозитории посмотрите, что изменилось с момента
+    последнего коммита, и просмотрите краткую историю коммитов
+    (один коммит на строку).
+
+- id: ex-git-basics-03
+  topic: git
+  difficulty: medium
+  statement: |
+    В уже инициализированном репозитории измените отслеживаемый файл,
+    не делая нового коммита, а затем верните его к последнему
+    закоммиченному состоянию.
+
+- id: ex-git-basics-04
+  topic: git
+  difficulty: medium
+  statement: |
+    Находясь на ветке main, влейте в неё готовую ветку feature-x и удалите
+    эту ветку после успешного слияния.
+
+# === Shell ===
+
+- id: ex-shell-basics-01
+  topic: shell
+  difficulty: easy
+  statement: |
+    В текущем каталоге выведите содержимое в длинном формате с указанием
+    типа объектов и в обратном порядке по времени модификации (самые свежие - внизу).
+
+- id: ex-shell-basics-02
+  topic: shell
+  difficulty: easy
+  statement: |
+    Создайте каталог proj-test внутри текущего, перейдите в него
+    и создайте внутри пустой файл .gitkeep.
+
+- id: ex-shell-basics-03
+  topic: shell
+  difficulty: medium
+  statement: |
+    В текущем каталоге и всех вложенных найдите все файлы с расширением
+    .log и выведите их пути.
+
+- id: ex-shell-basics-04
+  topic: shell
+  difficulty: medium
+  statement: |
+    Найдите во всех .py-файлах текущего каталога и его подкаталогов
+    строки, содержащие слово TODO, и выведите их с именем файла и
+    номером строки.
+
+# === SQL ===
+
+- id: ex-sql-basics-01
+  topic: sql
+  difficulty: easy
+  statement: |
+    Из таблицы Person выберите столбцы personal, family и id всех людей,
+    чей personal содержит букву «a», и отсортируйте результат по family
+    по возрастанию.
+
+- id: ex-sql-basics-02
+  topic: sql
+  difficulty: easy
+  statement: |
+    Из таблицы Person посчитайте общее количество людей и выведите это
+    число одним столбцом.
+
+- id: ex-sql-basics-03
+  topic: sql
+  difficulty: medium
+  statement: |
+    Из таблицы Visit подсчитайте среднее значение поля reading по каждому
+    person_id. Выведите person_id и среднее, отсортируйте по среднему
+    по убыванию.
+
+- id: ex-sql-basics-04
+  topic: sql
+  difficulty: medium
+  statement: |
+    Соедините таблицы Person и Visit: для каждого визита выведите имя
+    (personal + family) учёного и значение reading. Используйте INNER JOIN
+    по person_id.

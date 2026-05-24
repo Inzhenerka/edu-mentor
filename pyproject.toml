@@ -1,0 +1,24 @@
+[project]
+name = "edu-tutor"
+version = "0.1.0"
+description = "Advanced tutor agent with RAG and tools"
+readme = "README.md"
+requires-python = ">=3.12,<=3.13"
+dependencies = [
+    "fastapi[standard]==0.135.3",
+    "jinja2==3.1.6",
+    "langchain==1.2.15",
+    "langchain-openai==1.1.12",
+    "langchain-qdrant==1.1.0",
+    "loguru==0.7.3",
+    "pydantic==2.12.5",
+    "python-dotenv==1.2.2",
+    "pyyaml==6.0.3",
+]
+
+[tool.fastapi]
+entrypoint = "edu_tutor.api:app"
+
+[build-system]
+requires = ["uv_build>=0.11.3,<0.12"]
+build-backend = "uv_build"

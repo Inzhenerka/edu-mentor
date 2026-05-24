@@ -1,0 +1,35 @@
+# LLM model parameters
+llms:
+  api:
+    model: "gpt-5.4-mini"
+    provider: "openai"
+    base_url: "https://llm.inzhenerka-cloud.com/"
+    timeout: 60
+    max_output_tokens: 1024
+  ollama:
+    model: "qwen2.5:0.5b"
+    provider: "ollama"
+    base_url: "http://localhost:11434/"
+    timeout: 60
+    max_output_tokens: 1024
+
+# RAG parameters
+rag:
+  embedder:
+    model: "text-embedding-3-small"
+    base_url: "https://llm.inzhenerka-cloud.com/"
+    dimensions: 1536
+  store:
+    collection: "it_corpus"
+    location: "https://qdrant-stand.inzhenerka-cloud.com:443"
+  retriever:
+    k: 3
+    score_threshold: 0.5
+
+# Tool зфкфьуеукы
+tools:
+  exercises_file: "data/exercises.yml"
+
+# Various app-wide settings
+app:
+  log_level: "INFO"

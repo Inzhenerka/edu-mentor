@@ -1,0 +1,11 @@
+{% if chunks %}
+Источники из учебных материалов для ответа на следующий вопрос:
+{% for chunk in chunks %}
+[{{ loop.index }}] «{{ chunk.metadata.title }}»{% if chunk.metadata.section %} (раздел: {{ chunk.metadata.section }}){% endif %}:
+{{ chunk.page_content }}
+{% endfor -%}
+{% else %}
+По текущему запросу в учебных материалах ничего релевантного не нашлось.
+{% endif %}
+Вопрос:
+{{ question }}
