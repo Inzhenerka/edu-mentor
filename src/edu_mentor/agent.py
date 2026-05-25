@@ -1,3 +1,4 @@
+import os
 import uuid
 
 from langchain.agents import create_agent
@@ -47,7 +48,11 @@ class Mentor:
                 RAGMiddleware(retriever=retriever),
             ],
             debug=debug,
-        )
+        ).with_config({
+            "metadata": {
+                "phoenix_user": os.environ.get("PHOENIX_USER", "UNKNOWN_USER")
+            }
+        })
 
     def invoke(
         self,
@@ -65,7 +70,10 @@ class Mentor:
         # Формируем и передаем агенту сообщение
         response = self._agent.invoke(
             input={"messages": HumanMessage(prompt)},
-            config={"configurable": {"thread_id": effective_thread_id}},
+            config={
+                "configurable": {"thread_id": effective_thread_id},
+                "run_name": effective_thread_id,
+            },
         )
 
         # Извлекаем из состояния ответ LLM и исходные чанки для обработки
