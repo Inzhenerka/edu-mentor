@@ -28,7 +28,7 @@ rag:
 
 # Phoenix observability parameters
 observability:
-  endpoint: "https://phoenix-stand.inzhenerka-cloud.com/v1/traces"
+  endpoint: "https://phoenix-stand.inzhenerka-cloud.com/v1/traces" # or http://localhost:6006/v1/traces
   project_name: "edu-mentor"
 
 # Various app-wide settings
