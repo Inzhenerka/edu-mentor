@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from langchain.tools import tool
+from openinference.instrumentation.langchain import get_current_span
 
 
 @tool
@@ -33,6 +34,10 @@ def book_consultation(slot: str, topic: str) -> str:
         )
 
     # Мок-бронирование - в продакшене здесь был бы вызов внутреннего API расписания или обращение к БД.
+    span = get_current_span()  # Получаем доступ к спану инструмента
+    span.add_event("slot_booked", attributes={
+        "topic": topic, "slot": parsed_slot.isoformat()
+    })  # Создаем событие в Phoenix для отслеживания
     return (
         f"Слот забронирован: {parsed_slot.strftime('%d.%m.%Y в %H:%M')}, "
         f"тема: «{topic.strip()}». Куратор получит уведомление о встрече."
