@@ -26,6 +26,11 @@ rag:
     k: 3
     score_threshold: 0.6
 
+# Phoenix observability parameters
+observability:
+  endpoint: "https://phoenix-stand.inzhenerka-cloud.com/v1/traces"
+  project_name: "edu-mentor"
+
 # Various app-wide settings
 app:
   log_level: "INFO"

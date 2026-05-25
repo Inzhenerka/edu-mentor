@@ -41,10 +41,16 @@ class RAGConfig(BaseModel):
     retriever: RetrieverConfig
 
 
+class ObservabilityConfig(BaseModel):
+    endpoint: str
+    project_name: str = "agent"
+
+
 class Config(BaseModel):
     app: AppConfig
     llms: dict[str, LLMConfig]
     rag: RAGConfig
+    observability: ObservabilityConfig
 
     @classmethod
     def from_yaml_file(cls, config_path: str | Path = "config.yml") -> Self:

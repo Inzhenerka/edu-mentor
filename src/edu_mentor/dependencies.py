@@ -7,6 +7,7 @@ from loguru import logger
 
 from edu_mentor.agent import Mentor
 from edu_mentor.config import Config
+from edu_mentor.observability import setup_observability
 from edu_mentor.rag.embedder import get_embedder
 from edu_mentor.rag.vector_store import get_vector_store
 
@@ -22,6 +23,10 @@ def init_global_dependencies(app: FastAPI) -> None:
     # Настройка глобального логгера из конфига
     logger.remove()
     logger.add(sys.stdout, level=config.app.log_level)
+
+    # Подключение к Phoenix для мониторинга - до создания агента
+    setup_observability(config.observability)
+    logger.info(f"Phoenix observability ready: project={config.observability.project_name}")
 
     # Подключение к существующей коллекции Qdrant
     embedder = get_embedder(config.rag.embedder)
