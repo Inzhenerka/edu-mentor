@@ -34,7 +34,7 @@ def make_retrieval_task(config: Config) -> Callable[[dict[str, Any]], dict[str, 
     vector_store = get_vector_store(config.rag.store, embedder=embedder)
     retriever = get_retriever(config.rag.retriever, vector_store=vector_store)
 
-    def retrieve_task(input: dict[str, Any]) -> dict[str, Any]:
+    def retrieval_task(input: dict[str, Any]) -> dict[str, Any]:
         """Задача Phoenix для вызова ретривера."""
 
         # Парсим вход примера из словаря
@@ -47,4 +47,4 @@ def make_retrieval_task(config: Config) -> Callable[[dict[str, Any]], dict[str, 
             chunk_ids=[ChunkMetadata.from_document(doc).chunk_id for doc in documents]
         ).model_dump()
 
-    return retrieve_task
+    return retrieval_task
