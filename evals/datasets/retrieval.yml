@@ -1,0 +1,92 @@
+version: '1'
+examples:
+  - example_id: rag-py-listcomp
+    input:
+      question: Что такое list comprehension в Python и зачем он нужен?
+    output:
+      chunk_ids:
+        - tutorial_datastructures::00005013
+        - tutorial_datastructures::00005831
+        - tutorial_datastructures::00006399
+        - tutorial_datastructures::00006962
+
+  - example_id: rag-py-loops
+    input:
+      question: Как написать цикл for, чтобы пройтись по элементам списка?
+    output:
+      chunk_ids:
+        - tutorial_controlflow::00003835
+        - tutorial_datastructures::00018706
+        - tutorial_controlflow::00003004
+
+  - example_id: rag-git-restore-file
+    input:
+      question: Как вернуть файл к последней закоммиченной версии в Git?
+    output:
+      chunk_ids:
+        - git_novice_conflict::00014249
+        - git_novice_conflict::00013374
+        - git_novice_changes::00009219
+        - git_novice_history::00009274
+
+  - example_id: rag-shell-find
+    input:
+      question: Как найти все .py файлы в дереве директорий?
+    output:
+      chunk_ids:
+        - shell_novice_find::00013552
+        - shell_novice_find::00011223
+        - shell_novice_find::00011947
+
+  - example_id: rag-sql-join
+    input:
+      question: Как соединить две таблицы в SQL-запросе?
+    output:
+      chunk_ids:
+        - sql_novice_join::00003053
+        - sql_novice_join::00013209
+        - sql_novice_join::00004600
+
+  - example_id: rag-sql-where
+    input:
+      question: Как отфильтровать строки таблицы по условию в SQL?
+    output:
+      chunk_ids:
+        - sql_novice_filter::00000662
+        - sql_novice_filter::00009094
+        - sql_novice_filter::00001373
+
+  - example_id: rag-sql-distinct
+    input:
+      question: Как оставить в результате только уникальные строки таблицы?
+    output:
+      chunk_ids:
+        - sql_novice_sort_dup::00001780
+        - sql_novice_sort_dup::00006357
+        - sql_novice_sort_dup::00002402
+    metadata:
+      comment: Смысловая ловушка - близко и к оператору DISTINCT (правильно), и к теме теме уникального первичного ключа
+
+  - example_id: rag-oob-docker
+    input:
+      question: Как поднять контейнер с PostgreSQL в Docker?
+    output:
+      chunk_ids: []
+    metadata:
+      comment: Docker вне it_corpus - ответа нет
+
+  - example_id: rag-oob-go
+    input:
+      question: Что такое горутины в Go и как они работают?
+    output:
+      chunk_ids: []
+    metadata:
+      comment: Go вне it_corpus - ответа нет
+
+  - example_id: rag-oob-git-rebase
+    input:
+      question: Как переместить коммиты на другую ветку через git rebase?
+    output:
+      chunk_ids: []
+    metadata:
+      comment: В корпусе только базовый Git, rebase туда не входит

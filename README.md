@@ -21,7 +21,12 @@ cp .env.example .env
 ```bash
 # REST API + браузерный демо-чат на http://localhost:8000/demo
 uv run fastapi dev
+```
 
-# Или тестовый прогон через TestClient (без поднятия сервера):
-uv run main.py
+## Оценка качества (evals)
+
+Запуск оценки ретривера:
+
+```bash
+uv run python -m evals.run_retrieval
 ```
