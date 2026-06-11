@@ -24,7 +24,7 @@ rag:
     location: "https://qdrant-stand.inzhenerka-cloud.com:443"
   retriever:
     k: 3
-    score_threshold: 0.6
+    score_threshold: 0.7
 
 # Phoenix observability parameters
 observability:

@@ -5,6 +5,10 @@ from evals.harness import prepare_environment, get_user_id, make_retrieval_task
 from evals.phoenix_utils import get_phoenix_client, ensure_dataset
 from evals.dataset import RetrievalDataset
 from evals.metrics.hit import hit
+from evals.metrics.recall import recall
+from evals.metrics.precision import precision
+from evals.metrics.reciprocal_rank import reciprocal_rank
+from evals.metrics.correct_rejection import correct_rejection
 
 
 def main() -> None:
@@ -29,7 +33,7 @@ def main() -> None:
         client=client,
         dataset=phoenix_dataset,
         task=task,
-        evaluators=[hit],
+        evaluators=[hit, recall, precision, reciprocal_rank, correct_rejection],
         experiment_name=f"retrieval-k{config.rag.retriever.k}-th{config.rag.retriever.score_threshold}",
         experiment_description="Calculated retrieval metrics",
     )
