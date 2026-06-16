@@ -18,3 +18,12 @@ class ExampleInput(BaseModel):
 class RetrievalOutput(BaseModel):
     """Ожидаемый/фактический выход ретривера."""
     chunk_ids: list[str]
+
+
+class EmptyOutput(BaseModel):
+    """Пустой ответ для случаев, когда ответ не предполагается."""
+
+
+class AgentOutput(BaseModel):
+    """Выход задачи агента."""
+    answer: str

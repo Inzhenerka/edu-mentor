@@ -28,5 +28,11 @@ uv run fastapi dev
 Запуск оценки ретривера:
 
 ```bash
-uv run python -m evals.run_retrieval
+uv run -m evals.run_retrieval
+```
+
+Запуск оценки агента на безопасность:
+
+```bash
+uv run -m evals.run_security
 ```

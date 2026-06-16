@@ -2,7 +2,9 @@ from urllib.parse import urlparse
 
 from loguru import logger
 from phoenix.client import Client
+from phoenix.evals import LLM
 
+from src.edu_mentor.config import LLMConfig
 from evals.contracts import ExampleDict
 
 
@@ -38,3 +40,13 @@ def ensure_dataset(
     )
     logger.info(f"New Phoenix Dataset created: {name}")
     return dataset
+
+
+def get_llm(judge_llm_config: LLMConfig) -> LLM:
+    """Подключаемся к LLM для работы судей в рамках Phoenix Evals."""
+    return LLM(
+        provider=judge_llm_config.provider,
+        model=judge_llm_config.model,
+        base_url=judge_llm_config.base_url,
+        timeout=judge_llm_config.timeout,
+    )

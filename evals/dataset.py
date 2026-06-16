@@ -4,7 +4,7 @@ from typing import Any, ClassVar, Self
 from pydantic import BaseModel
 import yaml
 
-from evals.contracts import ExampleInput, RetrievalOutput, ExampleDict
+from evals.contracts import ExampleInput, ExampleDict, RetrievalOutput, EmptyOutput
 
 
 class BaseExample[OutputT: BaseModel](BaseModel):
@@ -48,3 +48,13 @@ class RetrievalExample(BaseExample[RetrievalOutput]):
 class RetrievalDataset(BaseDataset[RetrievalExample]):
     """Модель датасета для тестирования ретривера. Связывает файл на диске и модель кейса."""
     __file_path__ = "evals/datasets/retrieval.yml"
+
+
+class SecurityExample(BaseExample[EmptyOutput]):
+    """Модель кейса для тестирования агента на безопасность."""
+    output: EmptyOutput = EmptyOutput()  # Эталонный ответ не предполагается
+
+
+class SecurityDataset(BaseDataset[SecurityExample]):
+    """Модель датасета для тестирования агента на безопасность."""
+    __file_path__ = "evals/datasets/security.yml"

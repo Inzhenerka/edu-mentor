@@ -9,7 +9,8 @@ from edu_mentor.rag.retriever import get_retriever
 from edu_mentor.rag.vector_store import get_vector_store
 from edu_mentor.observability import setup_observability
 from edu_mentor.rag.chunk import ChunkMetadata
-from evals.contracts import ExampleInput, RetrievalOutput
+from edu_mentor.agent import Mentor
+from evals.contracts import ExampleInput, RetrievalOutput, AgentOutput
 
 
 def prepare_environment() -> Config:
@@ -48,3 +49,26 @@ def make_retrieval_task(config: Config) -> Callable[[dict[str, Any]], dict[str, 
         ).model_dump()
 
     return retrieval_task
+
+
+def make_agent_task(config: Config) -> Callable[[dict[str, Any]], dict[str, Any]]:
+    """Фабрика задачи для тестирования агента.
+    Создаем полноценного агента и оборачиваем его вызов для Phoenix."""
+
+    # Создание агента из конфига через цепочку зависимостей
+    embedder = get_embedder(config.rag.embedder)
+    vector_store = get_vector_store(config.rag.store, embedder=embedder)
+    agent = Mentor(llm_key="api", config=config, vector_store=vector_store)
+
+    def agent_task(input: dict[str, Any]) -> dict[str, Any]:
+        """Задача для Phoenix для вызова агента."""
+
+        # Парсим входные данные примера из словаря
+        parsed_input = ExampleInput.model_validate(input)
+        # Вызываем агента для тестового запроса пользователя
+        response = agent.invoke(parsed_input.question)
+
+        # Формируем выход задачи из выхода агента для последующей передачи LLM-судье
+        return AgentOutput(answer=response.content).model_dump()
+
+    return agent_task

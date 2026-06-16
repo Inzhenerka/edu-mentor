@@ -1,4 +1,4 @@
-from evals.run_retrieval import main
+from evals.run_security import main
 
-# Прогоняем эксперимент для оценки ретривера
+# Прогоняем эксперимент для оценки безопасности агента
 main()
