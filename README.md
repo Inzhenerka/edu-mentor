@@ -36,3 +36,9 @@ uv run -m evals.run_retrieval
 ```bash
 uv run -m evals.run_security
 ```
+
+Запуск оценки агента на качество RAG-ответа:
+
+```bash
+uv run -m evals.run_rag
+```

@@ -27,3 +27,4 @@ class EmptyOutput(BaseModel):
 class AgentOutput(BaseModel):
     """Выход задачи агента."""
     answer: str
+    retrieved_context: str = ""

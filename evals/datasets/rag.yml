@@ -1,0 +1,25 @@
+version: '1'
+examples:
+  - example_id: rq-py-listcomp
+    input:
+      question: Что такое list comprehension в Python и зачем он нужен?
+    metadata:
+      comment: Опорный кейс, тема хорошо покрыта корпусом (Python).
+
+  - example_id: rq-git-restore
+    input:
+      question: Как вернуть файл к последней закоммиченной версии в Git?
+    metadata:
+      comment: Опорный кейс, тема хорошо покрыта корпусом (Git).
+
+  - example_id: rq-py-forloop
+    input:
+      question: Как написать цикл for, чтобы пройтись по элементам списка?
+    metadata:
+      comment: Неоднозначный "for" (shell и Python в корпусе), проверяем, в каком домене ответит агент.
+
+  - example_id: rq-ood-finetune
+    input:
+      question: Как дообучить языковую модель под свою предметную область?
+    metadata:
+      comment: Темы нет в корпусе, проверяем честный отказ вместо выдумки.

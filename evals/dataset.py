@@ -58,3 +58,13 @@ class SecurityExample(BaseExample[EmptyOutput]):
 class SecurityDataset(BaseDataset[SecurityExample]):
     """Модель датасета для тестирования агента на безопасность."""
     __file_path__ = "evals/datasets/security.yml"
+
+
+class RagExample(BaseExample[EmptyOutput]):
+    """Модель кейса для оценки качества RAG-ответа."""
+    output: EmptyOutput = EmptyOutput()
+
+
+class RagDataset(BaseDataset[RagExample]):
+    """Модель датасета для оценки качества RAG-ответа."""
+    __file_path__ = "evals/datasets/rag.yml"

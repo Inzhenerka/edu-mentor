@@ -4,6 +4,7 @@ import uuid
 from langchain.agents import create_agent
 from langchain.agents.middleware import ModelCallLimitMiddleware, ModelRetryMiddleware
 from langchain.messages import HumanMessage
+from langchain_core.documents import Document
 from langchain_core.vectorstores import VectorStore
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.state import CompiledStateGraph
@@ -23,6 +24,11 @@ class MentorResponse(BaseModel):
     content: str
     thread_id: str
     sources: dict[int, ChunkMetadata]
+
+
+class MentorInternalData(BaseModel):
+    """Внутренние данные вызова агента для оценки и диагностики, пользователю не возвращаются."""
+    chunks: list[Document]
 
 
 class Mentor:
@@ -58,8 +64,8 @@ class Mentor:
         self,
         prompt: str,
         thread_id: str | None = None,
-    ) -> MentorResponse:
-        """Вызываем агента и извлекаем ответ из массива сообщений"""
+    ) -> tuple[MentorResponse, MentorInternalData]:
+        """Вызываем агента и готовим ответ для пользователя вместе с диагностическими данными."""
 
         # Ограничиваем длину запроса для экономии токенов
         prompt = prompt.strip()[:4000]
@@ -86,9 +92,9 @@ class Mentor:
             chunks=chunks,
         )
 
-        # Формируем ответ, включая источники и вызванные инструменты
+        # Формируем ответ для пользователя и внутренние отладочные данные
         return MentorResponse(
             content=response_content,
             sources=sources,
             thread_id=effective_thread_id,
-        )
+        ), MentorInternalData(chunks=chunks)

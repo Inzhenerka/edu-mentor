@@ -2,6 +2,7 @@ import os
 from typing import Any, Callable
 
 from dotenv import load_dotenv
+from langchain_core.documents import Document
 
 from edu_mentor.config import Config
 from edu_mentor.rag.embedder import get_embedder
@@ -66,9 +67,22 @@ def make_agent_task(config: Config) -> Callable[[dict[str, Any]], dict[str, Any]
         # Парсим входные данные примера из словаря
         parsed_input = ExampleInput.model_validate(input)
         # Вызываем агента для тестового запроса пользователя
-        response = agent.invoke(parsed_input.question)
+        response, internal_data = agent.invoke(parsed_input.question)
 
         # Формируем выход задачи из выхода агента для последующей передачи LLM-судье
-        return AgentOutput(answer=response.content).model_dump()
+        return AgentOutput(
+            answer=response.content,
+            retrieved_context=format_chunks_context(internal_data.chunks),
+        ).model_dump()
 
     return agent_task
+
+
+def format_chunks_context(chunks: list[Document]) -> str:
+    """Сборка чанков ретривера в единый текст для судьи."""
+    parts: list[str] = []
+    for num, chunk in enumerate(chunks, start=1):
+        metadata = ChunkMetadata.from_document(chunk)
+        section = f" (раздел: {metadata.section})" if metadata.section else ""
+        parts.append(f"[{num}] «{metadata.title}»{section}:\n{chunk.page_content}")
+    return "\n\n".join(parts)

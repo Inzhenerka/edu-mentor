@@ -36,6 +36,7 @@ def ask(
 ) -> MentorResponse:
     """Ask question to mentor agent."""
     try:
-        return agent.invoke(prompt=question, thread_id=thread_id)
+        response, _ = agent.invoke(prompt=question, thread_id=thread_id)
+        return response
     except Exception as error:
         raise HTTPException(status_code=502, detail=str(error)) from error
